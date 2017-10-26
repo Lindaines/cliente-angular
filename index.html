@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-br" ng-app="myapp">
+<head>
+	<meta charset="UTF-8">
+	<title>Topicos Especiais 3</title>
+	<!--Css-->
+	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+	
+	<!--Angular-->
+	<script src="bower_components/angular/angular.min.js"></script>
+	<script src="js/app.js"></script>
+	
+	<!--Serviços-->
+	<script src="js/services/usuarioAPI.js"></script>
+	<script src="js/services/listarAPI.js"></script>
+	<script src="js/services/excluirAPI.js"></script>
+	<script src="js/services/adicionarAPI.js"></script>
+	
+	
+	
+	<script src="js/services/interceptorsPush.js"></script>
+	<script src="js/services/authInterceptor.js"></script>
+	
+	
+	<!--Controllers-->
+	<script src="js/controllers/usuarioController.js"></script>
+	<script src="js/controllers/filmeController.js"></script>
+	
+	
+</head>
+<body>
+	<h1 class="text-center">Sistema de cadastro de filmes</h1>
+			
+	<div class="container">
+		<h2 class="text-center">Login</h1>
+		<form role="form" ng-controller="usuarioController">
+			<div class="form-group">
+				<input type="text" class="form-control" placeholder="Nome" ng-model="usuario.nome">
+			</div>
+			<div class="form-group">
+				<input type="password" class="form-control" placeholder="Senha" ng-model="usuario.senha">
+			</div>
+			<div class="form-group">
+				<button type="button" class="btn btn-default" ng-click="login(usuario)">Acessar</button>
+				<button type="button" class="btn btn-danger" ng-click="logout()">Logout</button>
+			</div>
+		</form>
+		<hr>
+
+
+		<div ng-controller="filmeController">
+			<form role="form" ng-show="showme">
+				<div class="form-group">
+					<input type="text" class="form-control" placeholder="Nome" ng-model="filme.nome">
+				</div>
+				<div class="form-group">
+					<input type="text" class="form-control" placeholder="Descricao" ng-model="filme.descricao">
+				</div>
+
+				<div class="form-group">
+						<input type="text" class="form-control" placeholder="Diretor" ng-model="filme.diretor">
+					</div>
+
+					<div class="form-group">
+							<input type="text" class="form-control" placeholder="Imdb" ng-model="filme.imdb">
+						</div>	
+				<div class="form-group">
+					<button type="button" class="btn btn-info"  ng-click="adicionar(filme)" >Cadastrar</button>
+				</div>
+			</form>
+
+			<h2 class="text-center">Filmes</h1>
+				
+			<button type="button" class="btn btn-default" ng-click="listar()">Atualizar Filmes</button>
+			<button ng-click="showme=true" class="btn btn-primary">Novo</button>
+
+
+
+			<table class="table">
+
+				<tr>
+					<th>Nome</th>
+					<th>Descrição</th>
+					<th>Diretor</th>
+					<th>Imdb</th>
+					
+				</tr>
+
+				
+
+				<tr ng-repeat="f in filmes">
+					<td> {{f.nome}} </td> 
+					<td>{{f.descricao}}</td>
+					<td> {{f.diretor}}</td>
+					<td>{{f.imdb}}</td>
+	
+					<td>{{f._id}}</td>
+					<td>
+					<input type="button" value="Remove" class="btn btn-danger" ng-click="excluir(f._id)"/>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</body>
+</html>
